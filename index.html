@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Harvey｜AI 研究助理作業</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #f1f7f5; color: #173043; font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Microsoft JhengHei", sans-serif; line-height: 1.75; }
+    main { max-width: 850px; margin: 0 auto; padding: 10vh 24px 60px; }
+    .eyebrow { color: #076a64; font-size: .8rem; font-weight: 800; letter-spacing: .13em; }
+    h1 { margin: 12px 0; font-size: clamp(2.3rem, 6vw, 4rem); line-height: 1.2; }
+    p { color: #536b78; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 30px; }
+    .card { display: block; padding: 22px; border: 1px solid #d7e6e4; border-radius: 12px; background: white; color: #173043; text-decoration: none; }
+    .card:hover { border-color: #076a64; }
+    .card:focus-visible { outline: 3px solid #d9a94c; outline-offset: 3px; }
+    .card strong { color: #076a64; font-size: 1.2rem; }
+    .card p { margin-bottom: 0; }
+    @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">HARVEY · AI RESEARCH ASSISTANT</p>
+    <h1>AI 研究助理：<br>Wiki 與教學展示</h1>
+    <p>探索 Harvey 的背景記憶、工作流程、使用者授權與研究驗證原則。</p>
+    <div class="grid">
+      <a class="card" href="llm-wiki/index.html"><strong>開啟 LLM Wiki →</strong><p>瀏覽互相連結的主題、六份來源、摘錄與維護紀錄。</p></a>
+      <a class="card" href="presentation.html"><strong>開啟教學展示 →</strong><p>從 Agent 概念出發，逐頁了解架構、流程圖與驗證界線。</p></a>
+    </div>
+    <p>此展示整理自 Harvey 工作空間經審核的文件摘錄；它不是已部署的全自動多 Agent 系統。</p>
+  </main>
+</body>
+</html>

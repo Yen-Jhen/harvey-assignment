@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Harvey LLM Wiki｜研究助理知識庫</title>
+  <style>
+    :root { color-scheme: light; --ink: #173043; --muted: #536b78; --line: #d7e6e4; --teal: #076a64; --pale: #eaf6f2; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: #f1f7f5; color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Microsoft JhengHei", sans-serif; line-height: 1.75; }
+    a { color: var(--teal); }
+    a:focus-visible { outline: 3px solid #d9a94c; outline-offset: 3px; }
+    .layout { max-width: 1400px; margin: auto; display: grid; grid-template-columns: 250px minmax(0, 1fr); }
+    aside { position: sticky; top: 0; height: 100vh; overflow-y: auto; padding: 35px 22px; border-right: 1px solid var(--line); }
+    .brand { margin: 0; color: var(--teal); font-weight: 800; letter-spacing: .12em; }
+    .subtitle { margin: 3px 0 24px; color: var(--muted); font-size: .82rem; }
+    nav h2 { margin: 20px 0 5px; color: #70858c; font-size: .73rem; letter-spacing: .12em; }
+    nav a { display: block; padding: 6px 9px; border-radius: 6px; color: var(--muted); font-size: .9rem; text-decoration: none; }
+    nav a:hover { background: var(--pale); color: var(--teal); }
+    main { min-width: 0; padding: 55px 7% 80px; }
+    .content { max-width: 950px; margin: auto; }
+    .eyebrow { color: var(--teal); font-size: .78rem; font-weight: 800; letter-spacing: .13em; }
+    h1 { margin: 10px 0 12px; font-size: clamp(2.3rem, 5vw, 3.7rem); line-height: 1.18; letter-spacing: -.04em; }
+    h2 { margin: 0 0 12px; font-size: 1.55rem; line-height: 1.3; }
+    h3 { margin: 0 0 8px; font-size: 1.05rem; }
+    p { margin: 0 0 14px; }
+    .lead { max-width: 700px; color: var(--muted); font-size: 1.08rem; }
+    .status { display: inline-block; margin-top: 12px; padding: 6px 12px; border-radius: 999px; background: #ddf0e8; color: #185d4f; font-size: .82rem; font-weight: 700; }
+    .hero { padding-bottom: 35px; border-bottom: 1px solid var(--line); }
+    section { padding-top: 45px; scroll-margin-top: 14px; }
+    .label { margin-bottom: 5px; color: var(--teal); font-size: .73rem; font-weight: 800; letter-spacing: .12em; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .card, .panel { padding: 20px 22px; border: 1px solid var(--line); border-radius: 12px; background: white; }
+    .card p:last-child, .panel p:last-child { margin-bottom: 0; }
+    .card a { text-decoration: none; }
+    .muted { color: var(--muted); }
+    .citation { margin-top: 16px; color: var(--muted); font-size: .88rem; }
+    .related { display: flex; flex-wrap: wrap; gap: 8px 15px; margin-top: 12px; font-size: .9rem; }
+    .notice { margin: 18px 0 0; padding: 13px 17px; border-left: 3px solid #d0a145; background: #fff7e5; color: #674f27; }
+    .diagram { margin: 18px 0; padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: white; }
+    .diagram img { display: block; width: 100%; height: auto; }
+    .diagram figcaption { padding: 8px 8px 0; color: var(--muted); font-size: .85rem; }
+    code { padding: 2px 5px; border-radius: 4px; background: #eaf3f0; font-size: .9em; overflow-wrap: anywhere; }
+    blockquote { margin: 10px 0; padding: 12px 16px; border-left: 3px solid #82beb2; background: #f4faf7; color: #365a57; }
+    ul, ol { padding-left: 1.4em; }
+    li { margin: 6px 0; }
+    footer { margin-top: 50px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: .82rem; }
+    @media (max-width: 760px) {
+      .layout { display: block; }
+      aside { position: static; height: auto; padding: 20px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .subtitle { margin-bottom: 10px; }
+      nav h2 { margin-top: 12px; }
+      nav a { display: inline-block; }
+      main { padding: 35px 20px 60px; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside>
+      <p class="brand">HARVEY</p>
+      <p class="subtitle">LLM Wiki · 研究助理</p>
+      <nav aria-label="Wiki 索引">
+        <h2>主題</h2>
+        <a href="#harvey">Harvey 的定位</a>
+        <a href="#memory">記憶與資料選讀</a>
+        <a href="#roles">Agent 與使用者</a>
+        <a href="#workflow">Agent 工作流程</a>
+        <a href="#handoff">跨模型交接</a>
+        <a href="#trust">資訊可信度</a>
+        <a href="#permissions">操作權限</a>
+        <a href="#improvement">系統改善</a>
+        <a href="#validation">研究驗證流程</a>
+        <a href="#theory-review">獨立理論審查</a>
+        <h2>來源與維護</h2>
+        <a href="#source-01">來源 01</a>
+        <a href="#source-02">來源 02</a>
+        <a href="#source-03">來源 03</a>
+        <a href="#source-04">來源 04</a>
+        <a href="#source-05">來源 05</a>
+        <a href="#source-06">來源 06</a>
+        <a href="#excerpts">來源 01 摘錄</a>
+        <a href="#excerpts-02">來源 02 摘錄</a>
+        <a href="#excerpts-03">來源 03 摘錄</a>
+        <a href="#excerpts-04">來源 04 摘錄</a>
+        <a href="#excerpts-05">來源 05 摘錄</a>
+        <a href="#excerpts-06">來源 06 摘錄</a>
+        <a href="#log">Ingest 日誌</a>
+        <a href="#schema">維護規則</a>
+        <a href="../presentation.html">教學展示頁 ↗</a>
+      </nav>
+    </aside>
+    <main>
+      <div class="content">
+        <header class="hero">
+          <p class="eyebrow">PERSONAL KNOWLEDGE BASE</p>
+          <h1>Harvey LLM Wiki</h1>
+          <p class="lead">以可追溯的資料與相互連結的主題，整理 Harvey 作為研究助理的架構和工作方式。</p>
+          <span class="status">已 ingest 6 份來源 · 逐份確認中</span>
+          <p class="notice">目前已整理 6 份 Harvey 文件；若繼續納入其他資料，仍須逐份討論並確認。</p>
+          <p><a href="../presentation.html">開啟教學展示頁 →</a></p>
+        </header>
+
+        <section id="contents">
+          <p class="label">WIKI INDEX</p>
+          <h2>主題索引</h2>
+          <div class="grid">
+            <div class="card"><h3><a href="#harvey">Harvey 的定位 →</a></h3><p class="muted">工作空間的用途與邊界。</p></div>
+            <div class="card"><h3><a href="#memory">記憶與資料選讀 →</a></h3><p class="muted">相關背景如何保存、選讀與核對。</p></div>
+            <div class="card"><h3><a href="#roles">Agent 與使用者 →</a></h3><p class="muted">任務協助、批准與最終判斷的分工。</p></div>
+            <div class="card"><h3><a href="#workflow">Agent 工作流程與回饋 →</a></h3><p class="muted">任務、判斷、回饋、批准與交回。</p></div>
+            <div class="card"><h3><a href="#handoff">跨模型交接 →</a></h3><p class="muted">文件與 Git 的作用，以及不同工具之間的限制。</p></div>
+            <div class="card"><h3><a href="#trust">資訊可信度 →</a></h3><p class="muted">區分當前資訊、歷史摘要與 AI 推論。</p></div>
+            <div class="card"><h3><a href="#permissions">操作權限 →</a></h3><p class="muted">修改前批准與分析執行的界線。</p></div>
+            <div class="card"><h3><a href="#improvement">系統改善 →</a></h3><p class="muted">以需求與驗收標準驅動有界改善。</p></div>
+            <div class="card"><h3><a href="#validation">研究驗證流程 →</a></h3><p class="muted">釐清假設、唯讀檢視、授權與獨立驗證。</p></div>
+            <div class="card"><h3><a href="#theory-review">獨立理論審查 →</a></h3><p class="muted">從假設重新推導，並處理盲審的資訊隔離。</p></div>
+          </div>
+        </section>
+
+        <section id="harvey">
+          <p class="label">CONCEPT 01</p>
+          <h2>Harvey 的定位</h2>
+          <p>Harvey 是個人 AI 研究助理的工作空間，提供背景與工作流程，讓 Agent 在任務中有可參考的資訊。它不是自行訓練的模型，也不是能自行運作的多 Agent 協調系統。</p>
+          <p>這份作業以研究助理為展示範圍；原始工作空間可支援的其他用途不在此展開。</p>
+          <div class="related"><a href="#memory">記憶與資料選讀</a><a href="#roles">Agent 與使用者</a><a href="#handoff">跨模型交接</a></div>
+          <p class="citation">來源：<a href="#source-01">來源 01・工作空間概覽</a> · <a href="topics/harvey.md">Markdown 條目</a></p>
+        </section>
+
+        <section id="memory">
+          <p class="label">CONCEPT 02</p>
+          <h2>記憶與資料選讀</h2>
+          <p>Harvey 將可重用的背景與工作流程寫在文件中。Agent 處理專案任務時，選讀與當前問題相關的資料；不應把流程模板視為自動執行操作的許可。</p>
+          <p>AI 系統架構進一步建議以 Markdown 和 Git 歷史保存背景，而不是只依賴聊天；角色指示應保持精簡並按需要載入背景。</p>
+          <p>文件中的筆記可能錯誤或過時，因此仍需要與可核對的當前資料比較；有日期的紀錄互相衝突時，應指出差異，而非自行猜測。</p>
+          <div class="related"><a href="#harvey">Harvey 的定位</a><a href="#roles">Agent 與使用者</a><a href="#handoff">跨模型交接</a><a href="#trust">資訊可信度</a></div>
+          <p class="citation">來源：<a href="#source-01">來源 01</a>、<a href="#source-02">來源 02</a>、<a href="#source-03">來源 03</a> · <a href="topics/memory.md">Markdown 條目</a></p>
+        </section>
+
+        <section id="roles">
+          <p class="label">CONCEPT 03</p>
+          <h2>Agent 與使用者</h2>
+          <p>Agent 可以利用可用背景協助理解任務、討論問題並提出建議。使用者負責科學判斷、相關操作的批准，以及最終檢查與解讀。</p>
+          <p>不同模型的角色分工是可調整的初始安排，而不是固定或自動執行的規則。使用者仍負責資料的手動驗證與正式分析的執行。</p>
+          <p>交接流程中，使用者處理審查分歧，並決定是否批准具體修改。</p>
+          <p>讀取背景或使用工作流程模板，本身不代表 Agent 已獲准進行所有操作。對正式研究程式，應先提出具體修改並取得使用者批准；未經明確授權，不執行科學分析。</p>
+          <div class="related"><a href="#harvey">Harvey 的定位</a><a href="#memory">記憶與資料選讀</a><a href="#handoff">跨模型交接</a><a href="#permissions">操作權限</a><a href="#trust">資訊可信度</a><a href="#validation">研究驗證流程</a><a href="#workflow">Agent 工作流程</a></div>
+          <p class="citation">來源：<a href="#source-01">來源 01</a>、<a href="#source-02">來源 02</a>、<a href="#source-03">來源 03</a>、<a href="#source-04">來源 04</a>、<a href="#source-06">來源 06</a> · <a href="topics/agent-user.md">Markdown 條目</a></p>
+        </section>
+
+        <section id="workflow">
+          <p class="label">WORKFLOW / LOOP</p>
+          <h2>Agent 工作流程與回饋</h2>
+          <p>以下概念圖依工作空間的角色分工、資料選讀與操作權限整理；不是已部署或自動強制執行的程式。</p>
+          <figure class="diagram">
+            <img src="../harvey-loop.svg" alt="Agent 工作流程：接收任務、資料檢查、使用者回饋、結束與批准分支。">
+            <figcaption>回饋返回資料檢查；修改正式研究程式前需批准；完成或需使用者處理時交回。</figcaption>
+          </figure>
+          <ol>
+            <li>接收使用者任務，判斷需要哪些背景、規則與讀取權限。</li>
+            <li>讀取相關資料，形成回答或具體建議，交給使用者檢查。</li>
+            <li>使用者提供回饋或新資訊時，回到資料檢查並修正；回答完成或需要使用者處理時，結束本次回應或交回。</li>
+            <li>若需要修改正式研究程式，先提出具體修改並等待批准；未批准或尚未決定時不修改。批准後只處理核准範圍，科學分析仍需明確授權。</li>
+          </ol>
+          <p>這是對工作規則的綜合說明，不代表已執行科學分析或驗證結果。可在<a href="../presentation.html#s7">教學展示頁的流程圖</a>查看同一張圖與解說。</p>
+          <div class="related"><a href="#roles">Agent 與使用者</a><a href="#memory">記憶與資料選讀</a><a href="#permissions">操作權限</a><a href="#validation">研究驗證流程</a></div>
+          <p class="citation">來源：<a href="#source-01">來源 01</a>、<a href="#source-02">來源 02</a>、<a href="#source-04">來源 04</a> · <a href="topics/agent-workflow.md">Markdown 條目</a></p>
+        </section>
+
+        <section id="handoff">
+          <p class="label">CONCEPT 04</p>
+          <h2>跨模型交接</h2>
+          <p>不同 AI 工具或模型不會因為共用 Git 儲存庫，自動共享對話或啟動協作。文件可以作為有意識的交接媒介；某個模型是否能讀到文件，取決於使用者提供資料的方式與該工具的實際存取能力。</p>
+          <p>Git 可保存文件版本，但不等於模型之間的聊天訊息系統，也不會自行執行 Agent。</p>
+          <p>不同對話取得資料仍需要支援的連接方式、相容的本地檔案工具，或由使用者刻意提供資料與交接。</p>
+          <p>若交接用於盲審，審查者第一輪只能收到受限資料；分開檔案本身不代表實際存取已隔離。</p>
+          <p>任務交接可以精簡記錄目標、假設、限制、審查及使用者決定；交接記錄不取代實際檢查或科學驗證。</p>
+          <div class="related"><a href="#harvey">Harvey 的定位</a><a href="#memory">記憶與資料選讀</a><a href="#roles">Agent 與使用者</a><a href="#theory-review">獨立理論審查</a></div>
+          <p class="citation">來源：<a href="#source-01">來源 01</a>、<a href="#source-03">來源 03</a>、<a href="#source-05">來源 05</a>、<a href="#source-06">來源 06</a> · <a href="topics/model-handoff.md">Markdown 條目</a></p>
+        </section>
+
+        <section id="trust">
+          <p class="label">CONCEPT 05</p>
+          <h2>資訊可信度</h2>
+          <p>Agent 應區分使用者的當前指示、可核對的現行資料、帶有日期的背景摘要，以及 AI 自身的推論。AI 推論必須標明，不應冒充已驗證的事實。</p>
+          <p>若歷史紀錄互相衝突，應指出差異並核對現行資訊；不應自行猜測哪一份正確。這也呼應工作空間概覽對過時或錯誤筆記的提醒。</p>
+          <p>多個模型意見一致不代表結論正確；應透過外部參考、簡化測試、恆等性和已知極限等獨立方法檢查。</p>
+          <p>研究驗證流程也要求引用數值時標明來源，並區分已知事實、疑點與尚待執行的驗證。</p>
+          <div class="related"><a href="#memory">記憶與資料選讀</a><a href="#permissions">操作權限</a><a href="#roles">Agent 與使用者</a><a href="#validation">研究驗證流程</a><a href="#theory-review">獨立理論審查</a></div>
+          <p class="citation">來源：<a href="#source-01">來源 01</a>、<a href="#source-02">來源 02</a>、<a href="#source-03">來源 03</a>、<a href="#source-04">來源 04</a>、<a href="#source-05">來源 05</a> · <a href="topics/information-trust.md">Markdown 條目</a></p>
+        </section>
+
+        <section id="permissions">
+          <p class="label">CONCEPT 06</p>
+          <h2>操作權限</h2>
+          <p>詢問是否可行或如何修改，不等於批准操作。對正式研究程式，Agent 需先提出具體修改並取得使用者明確批准；未經明確授權，不執行科學分析。</p>
+          <p>這些是文件所描述的工作規則，不代表已有程式層級的自動強制機制。實際任務仍需依當前要求、適用規則和工具權限處理。</p>
+          <div class="related"><a href="#roles">Agent 與使用者</a><a href="#trust">資訊可信度</a><a href="#memory">記憶與資料選讀</a><a href="#validation">研究驗證流程</a><a href="#workflow">Agent 工作流程</a></div>
+          <p class="citation">來源：<a href="#source-02">來源 02</a>、<a href="#source-04">來源 04</a> · <a href="topics/permissions.md">Markdown 條目</a></p>
+        </section>
+
+        <section id="improvement">
+          <p class="label">CONCEPT 07</p>
+          <h2>系統改善</h2>
+          <p>系統改善應回應反覆出現的問題、具體需求或可衡量的機會，而不是為了增加工具而增加工具。</p>
+          <p>先定義小型成果與驗收標準，再執行有界修改並審核差異。使用者評估結果後，決定採用、修訂或捨棄，並記錄日期與理由；必要操作仍需符合權限規則。</p>
+          <div class="related"><a href="#roles">Agent 與使用者</a><a href="#trust">資訊可信度</a><a href="#permissions">操作權限</a></div>
+          <p class="citation">來源：<a href="#source-03">來源 03・AI 系統架構</a> · <a href="topics/system-improvement.md">Markdown 條目</a></p>
+        </section>
+
+        <section id="validation">
+          <p class="label">CONCEPT 08</p>
+          <h2>研究驗證流程</h2>
+          <p>處理研究問題時，先釐清目標與科學假設，確認輸入及預期結果；資訊不足時標明不確定性。</p>
+          <p>Agent 預設先以唯讀方式檢視，說明可能問題及其影響並提出具體建議。修改正式研究程式前需使用者批准；執行科學分析需明確授權。</p>
+          <p>驗證應包含具有獨立預期結果的簡化測試或解析極限，而不是只檢查模型輸出是否自洽。引用的數值應有可追溯來源。流程建議分開呈現已知事實、疑點、修改建議、使用者待執行的驗證及不確定性。</p>
+          <p>這是文件描述的工作流程，交接記錄不取代實際檢查或科學驗證；記錄流程不代表這些檢查已經執行，也不等同科學結論已驗證。</p>
+          <div class="related"><a href="#roles">Agent 與使用者</a><a href="#trust">資訊可信度</a><a href="#permissions">操作權限</a><a href="#theory-review">獨立理論審查</a><a href="#workflow">Agent 工作流程</a></div>
+          <p class="citation">來源：<a href="#source-04">來源 04</a>、<a href="#source-06">來源 06</a>；獨立驗證亦見 <a href="#source-03">來源 03</a> · <a href="topics/research-validation.md">Markdown 條目</a></p>
+        </section>
+
+        <section id="theory-review">
+          <p class="label">CONCEPT 09</p>
+          <h2>獨立理論審查</h2>
+          <p>審查前應明確列出待檢查的主張、定義、單位、參數範圍、假設及推導，並提供獨立已知的基準。</p>
+          <p>審查者從假設重新推導，不以先前模型結論為前提；檢查量綱、極限、符號、正規化與遺漏項，提出可區分不同解釋的觀測或計算測試。結果應區分已確立內容、近似與尚未驗證的事項。</p>
+          <p>採用盲審時，先提供受限制的審查資料，記錄審查者第一輪結果後才分享先前的模型結論。分開的審查檔案本身不能保證隔離；是否獨立取決於實際提供與可存取的資訊。</p>
+          <p>一般審查可以參考其他意見和先前討論；如果無法確認審查者只收到盲審資料，就應記錄為一般審查並說明原因。</p>
+          <p>多個模型同意不構成獨立物理證據；仍需解析檢查、文獻及可重現的數值測試。這是建議的審查流程，不代表此處已實施盲審或完成科學驗證。</p>
+          <div class="related"><a href="#validation">研究驗證流程</a><a href="#trust">資訊可信度</a><a href="#handoff">跨模型交接</a></div>
+          <p class="citation">來源：<a href="#source-05">來源 05</a>、<a href="#source-03">來源 03</a>、<a href="#source-06">來源 06</a> · <a href="topics/theory-review.md">Markdown 條目</a></p>
+        </section>
+
+        <section id="source-01">
+          <p class="label">SOURCE 01</p>
+          <h2>來源摘要：工作空間概覽</h2>
+          <div class="panel">
+            <p><strong>原始來源：</strong>Harvey 根目錄的 <code>README.md</code>，標示日期 2026-10-30。<br><strong>Ingest 日期：</strong>2026-11-15。</p>
+            <p>本次整理四個經確認的主題：工作空間定位、相關背景選讀、Agent 與使用者分工，以及跨模型交接的限制。</p>
+            <p>為保護隱私，作業資料夾只保留審核後摘錄；它不是完整原始文件。原始來源保留於原位，未因 ingest 修改。</p>
+            <p><a href="#excerpts">查看審核後摘錄</a> · <a href="sources/01-workspace.md">Markdown 來源摘要</a></p>
+          </div>
+        </section>
+
+        <section id="source-02">
+          <p class="label">SOURCE 02</p>
+          <h2>來源摘要：Agent 工作協議</h2>
+          <div class="panel">
+            <p><strong>原始來源：</strong>Harvey 根目錄的 <code>AGENTS.md</code>，版本 2026-10-30。<br><strong>Ingest 日期：</strong>2026-11-15。</p>
+            <p>本次整理通用角色、資訊可信度、操作權限與背景選讀；其他未經確認的私人與研究細節不納入。</p>
+            <p>作業資料夾只保留審核後摘錄，不是完整原文；原始來源保留於原位，未因 ingest 修改。</p>
+            <p><a href="#excerpts-02">查看審核後摘錄</a> · <a href="sources/02-working-agreement.md">Markdown 來源摘要</a></p>
+          </div>
+        </section>
+
+        <section id="source-03">
+          <p class="label">SOURCE 03</p>
+          <h2>來源摘要：AI 系統架構</h2>
+          <div class="panel">
+            <p><strong>原始來源：</strong>Harvey 的 <code>context/ai-system.md</code>，架構提出於 2026-10-30。<br><strong>Ingest 日期：</strong>2026-11-15。</p>
+            <p>整理持久背景、可調整的角色、獨立驗證、使用者權限、文件交接與有界改善。原文件將系統定位為文件基礎，而非已部署的自動協作系統。</p>
+            <p>作業資料夾只保留審核後摘錄，不是完整原文；原始來源保留於原位，未因 ingest 修改。</p>
+            <p><a href="#excerpts-03">查看審核後摘錄</a> · <a href="sources/03-ai-system.md">Markdown 來源摘要</a></p>
+          </div>
+        </section>
+
+        <section id="source-04">
+          <p class="label">SOURCE 04</p>
+          <h2>來源摘要：研究驗證流程</h2>
+          <div class="panel">
+            <p><strong>原始來源：</strong>Harvey 的 <code>workflows/research-validation.md</code>。<br><strong>Ingest 日期：</strong>2026-11-15。</p>
+            <p>整理釐清問題、唯讀檢視、操作授權、獨立驗證與結果分類等經確認的通用原則。</p>
+            <p>作業資料夾只保留審核後摘錄，不是完整原文；原始來源保留於原位，未因 ingest 修改。</p>
+            <p><a href="#excerpts-04">查看審核後摘錄</a> · <a href="sources/04-research-validation.md">Markdown 來源摘要</a></p>
+          </div>
+        </section>
+
+        <section id="source-05">
+          <p class="label">SOURCE 05</p>
+          <h2>來源摘要：獨立理論審查</h2>
+          <div class="panel">
+            <p><strong>原始來源：</strong>Harvey 的 <code>workflows/theory-review.md</code>。<br><strong>Ingest 日期：</strong>2026-11-15。</p>
+            <p>整理審查輸入、重新推導、結果分類、盲審及獨立驗證；分開檔案本身不保證盲審資訊隔離。</p>
+            <p>作業資料夾只保留審核後摘錄，不是完整原文；原始來源保留於原位，未因 ingest 修改。</p>
+            <p><a href="#excerpts-05">查看審核後摘錄</a> · <a href="sources/05-theory-review.md">Markdown 來源摘要</a></p>
+          </div>
+        </section>
+
+        <section id="source-06">
+          <p class="label">SOURCE 06</p>
+          <h2>來源摘要：任務交接流程</h2>
+          <div class="panel">
+            <p><strong>原始來源：</strong>Harvey 的 <code>handoffs/README.md</code>。<br><strong>Ingest 日期：</strong>2026-11-15。</p>
+            <p>整理任務交接、審查模式、資訊隔離、使用者決定及驗證界線等通用原則。</p>
+            <p>作業資料夾只保留審核後摘錄，不是完整原文；原始來源保留於原位，未因 ingest 修改。</p>
+            <p><a href="#excerpts-06">查看審核後摘錄</a> · <a href="sources/06-handoff.md">Markdown 來源摘要</a></p>
+          </div>
+        </section>
+
+        <section id="excerpts">
+          <p class="label">CURATED EXCERPTS</p>
+          <h2>審核後來源摘錄</h2>
+          <p class="muted">以下是原始來源中與本次四個主題相關的英文原文片段，並非完整原文。</p>
+          <blockquote>A vendor-neutral, Git-friendly context and workflow foundation for ChatGPT/Codex, Claude Code, and Grok.</blockquote>
+          <blockquote>This is <strong>not</strong> a trained model or functioning multi-agent orchestrator.</blockquote>
+          <blockquote>Load only the relevant file under <code>projects/</code> when working on a specific project.</blockquote>
+          <blockquote>Use <code>workflows/</code> as optional, explicit task templates rather than automatic execution permissions.</blockquote>
+          <blockquote>scientific ownership, approval of code modifications and execution, final acceptance and interpretation.</blockquote>
+          <blockquote>Models do not automatically share state: files are the handoff mechanism. Git stores versions, not conversation state, and does not itself run agents.</blockquote>
+          <blockquote>Model notes can be wrong or stale.</blockquote>
+          <p class="citation"><a href="raw/01-workspace-excerpts.md">Markdown 摘錄檔</a> · <a href="#source-01">返回來源摘要</a></p>
+        </section>
+
+        <section id="excerpts-02">
+          <p class="label">SOURCE 02 · CURATED EXCERPTS</p>
+          <h2>來源 02 審核後摘錄</h2>
+          <p class="muted">以下是工作協議中經審核的英文原文片段，不是完整原文。</p>
+          <blockquote>Current explicit user request and user-confirmed decisions.</blockquote>
+          <blockquote>Actual up-to-date repository files, run outputs, logs, and verified paper data (where authorized and accessible).</blockquote>
+          <blockquote>AI inference: label it as inference, never pretend it is a measured or established result.</blockquote>
+          <blockquote>If dated records conflict, state the conflict and inspect actual files or ask only when a material ambiguity blocks progress.</blockquote>
+          <blockquote>For production/analysis code, <strong>propose exact edits and obtain explicit approval before modifying files</strong>.</blockquote>
+          <blockquote>A question about feasibility is not approval.</blockquote>
+          <blockquote>Do not execute scientific analysis scripts without explicit authorization.</blockquote>
+          <blockquote>Load only the documents required for the current task.</blockquote>
+          <blockquote>Read task files and project context as needed.</blockquote>
+          <p class="citation"><a href="raw/02-working-agreement-excerpts.md">Markdown 摘錄檔</a> · <a href="#source-02">返回來源摘要</a></p>
+        </section>
+
+        <section id="excerpts-03">
+          <p class="label">SOURCE 03 · CURATED EXCERPTS</p>
+          <h2>來源 03 審核後摘錄</h2>
+          <p class="muted">以下是 AI 系統架構文件中經審核的英文原文片段，不是完整原文。</p>
+          <blockquote>Persistent written context lives in plain Markdown and Git history, <em>not solely in chats</em>.</blockquote>
+          <blockquote>Avoid one enormous all-purpose prompt. Keep small role instructions and load project context only when relevant.</blockquote>
+          <blockquote>The user remains final scientific authority, responsible for manual data validation and production execution.</blockquote>
+          <blockquote>Initial model roles (flexible hypotheses)</blockquote>
+          <blockquote>Never assume multi-model agreement equals correctness. Models should independently check against <strong>external references, toy results, invariants and known limits</strong>.</blockquote>
+          <blockquote>A local Git repo is a common file store and history, not a cross-provider chat bus.</blockquote>
+          <blockquote>A conversation needs an upload, connector, compatible local file tool, or deliberate handoff to read repository files.</blockquote>
+          <blockquote>Upgrade only when there is a repeated failure, concrete need, or useful measurable opportunity.</blockquote>
+          <blockquote>Define a small deliverable and acceptance criterion.</blockquote>
+          <blockquote>Implement one bounded change; review the diff.</blockquote>
+          <blockquote>Adopt, revise or discard. Record date and rationale.</blockquote>
+          <p class="citation"><a href="raw/03-ai-system-excerpts.md">Markdown 摘錄檔</a> · <a href="#source-03">返回來源摘要</a></p>
+        </section>
+
+        <section id="excerpts-04">
+          <p class="label">SOURCE 04 · CURATED EXCERPTS</p>
+          <h2>來源 04 審核後摘錄</h2>
+          <p class="muted">以下是研究驗證流程中經審核的英文原文片段，不是完整原文。</p>
+          <blockquote>read-only analysis and recommendations.</blockquote>
+          <blockquote>Restate the scientific assumption and expected numerical invariant. If underspecified, label the ambiguity.</blockquote>
+          <blockquote>Prioritize concrete defects and their consequences; show minimal proposed fix. Do not edit unless user approves.</blockquote>
+          <blockquote>Propose an <strong>independent expected-value</strong> toy example/analytic limit. Leave execution of scientific macros to user unless explicitly requested.</blockquote>
+          <blockquote>Known facts | Suspected issues | Proposed exact change | Validation to be performed by user | Uncertainty</blockquote>
+          <blockquote>At least one calculation/limit that is independent of model self-consistency.</blockquote>
+          <blockquote>Identified provenance for each quoted numerical result.</blockquote>
+          <p class="citation"><a href="raw/04-research-validation-excerpts.md">Markdown 摘錄檔</a> · <a href="#source-04">返回來源摘要</a></p>
+        </section>
+
+        <section id="excerpts-05">
+          <p class="label">SOURCE 05 · CURATED EXCERPTS</p>
+          <h2>來源 05 審核後摘錄</h2>
+          <p class="muted">以下是獨立理論審查文件中經審核的英文原文片段，不是完整原文。</p>
+          <blockquote>Precise claim, physical system, definitions, units and parameter ranges.</blockquote>
+          <blockquote>Assumptions approximations, data regime and nuisance parameters.</blockquote>
+          <blockquote>The derivation or algorithm to critique, and independently known benchmark(s).</blockquote>
+          <blockquote>Share earlier model conclusions only after the reviewer's first pass is recorded.</blockquote>
+          <blockquote>Re-derive from assumptions without using the previous model's conclusion as an axiom.</blockquote>
+          <blockquote>Check dimensions, limiting behavior, signs, normalization and missing terms.</blockquote>
+          <blockquote>Identify observational or computational tests that distinguish competing possibilities.</blockquote>
+          <blockquote>Flag what is an approximation, what is well established, and what remains unverified.</blockquote>
+          <blockquote>agreement across LLMs is not independent physical evidence; use analytic checks, literature and reproducible numerical tests.</blockquote>
+          <p class="citation"><a href="raw/05-theory-review-excerpts.md">Markdown 摘錄檔</a> · <a href="#source-05">返回來源摘要</a></p>
+        </section>
+
+        <section id="excerpts-06">
+          <p class="label">SOURCE 06 · CURATED EXCERPTS</p>
+          <h2>來源 06 審核後摘錄</h2>
+          <p class="muted">以下是任務交接文件中經審核的英文原文片段，不是完整原文。</p>
+          <blockquote>Keep files concise; link to detailed project files instead of copying them.</blockquote>
+          <blockquote>The user resolves disagreements and records explicit approval</blockquote>
+          <blockquote>The user runs scientific analysis and validates outputs.</blockquote>
+          <blockquote>The first pass is produced from a separate, restricted input packet and nothing else, following the procedure below.</blockquote>
+          <blockquote>Putting reviews in separate files does not by itself make any review blind.</blockquote>
+          <blockquote>The review is blind only if the reviewer actually received the packet and nothing else.</blockquote>
+          <blockquote>If that cannot be confirmed, record <code>Review mode: ordinary</code> with the reason; the review is still useful, but not independent.</blockquote>
+          <blockquote>A handoff is never a substitute for actual code inspection or scientific verification.</blockquote>
+          <p class="citation"><a href="raw/06-handoff-excerpts.md">Markdown 摘錄檔</a> · <a href="#source-06">返回來源摘要</a></p>
+        </section>
+
+        <section id="log">
+          <p class="label">INGEST LOG</p>
+          <h2>Ingest 日誌</h2>
+          <div class="panel">
+            <h3>2026-11-15 · 來源 01：工作空間概覽</h3>
+            <p>讀取並整理第一份來源；建立來源摘錄、摘要與四個互相連結的主題，更新索引與日誌。原始文件未修改。</p>
+            <h3>2026-11-15 · 來源 02：Agent 工作協議</h3>
+            <p>建立來源摘錄與摘要，新增資訊可信度與操作權限條目，並更新記憶與使用者分工頁面及索引。原始文件未修改。</p>
+            <h3>2026-11-15 · 來源 03：AI 系統架構</h3>
+            <p>建立來源摘錄、摘要與系統改善條目，更新記憶、分工、可信度與交接等主題及索引。原始文件未修改。</p>
+            <h3>2026-11-15 · 來源 04：研究驗證流程</h3>
+            <p>建立來源摘錄、摘要與研究驗證流程條目，更新分工、可信度、權限及索引。原始文件未修改。</p>
+            <h3>2026-11-15 · 來源 05：獨立理論審查</h3>
+            <p>建立來源摘錄、摘要與理論審查條目，更新研究驗證、資訊可信度、跨模型交接及索引。原始文件未修改。</p>
+            <h3>2026-11-15 · 來源 06：任務交接流程</h3>
+            <p>建立來源摘錄與摘要，更新跨模型交接、理論審查、使用者分工、研究驗證及索引。原始文件未修改。</p>
+            <h3>2026-11-15 · 維護：工作流程圖與展示頁連結</h3>
+            <p>整合既有流程圖，新增工作流程主題及 Wiki 與展示頁的雙向連結；未新增來源。</p>
+            <p class="muted">目前已完成 6 份；其他來源尚待逐份討論與確認。</p>
+            <p><a href="log.md">Markdown 日誌</a> · <a href="index.md">Markdown 索引</a></p>
+          </div>
+        </section>
+
+        <section id="schema">
+          <p class="label">WIKI SCHEMA</p>
+          <h2>Wiki 如何維護</h2>
+          <ol>
+            <li>逐份討論來源，確認可納入的內容。</li>
+            <li>讀取原始資料而不修改；摘錄需標明來源與不完整性。</li>
+            <li>建立來源摘要，更新相關主題、交叉連結與來源標註。</li>
+            <li>更新索引、追加日誌，並同步 HTML 瀏覽頁。</li>
+            <li>檢查斷鏈、過時資訊與來源間的矛盾。</li>
+          </ol>
+          <p class="muted">公開或分享前，仍需由使用者審核。完整規則見 <a href="schema.md">Markdown 維護規則</a>。</p>
+        </section>
+        <footer>HARVEY LLM WIKI · 持續更新的靜態瀏覽頁</footer>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 590" role="img" aria-labelledby="title desc">
+  <title id="title">Harvey 研究助理概念工作流程</title>
+  <desc id="desc">接收任務，判斷背景與規則，讀取資料，形成回答，使用者檢查後，可提供回饋回到資料檢查、交回或結束，或先批准具體研究程式修改。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,4 L0,8 z" fill="#467972"/></marker>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Microsoft JhengHei", sans-serif; fill: #172b3d; text-anchor: middle; }
+      .node { fill: #fff; stroke: #a9d4cb; stroke-width: 2; }
+      .branch { fill: #e9f6f2; stroke: #91cbbd; stroke-width: 2; }
+      .caution { fill: #fff7e2; stroke: #dfc281; stroke-width: 2; }
+      .line { fill: none; stroke: #467972; stroke-width: 2.5; marker-end: url(#arrow); }
+      .heading { font-size: 20px; font-weight: 700; }
+      .note { font-size: 15px; fill: #526a78; }
+    </style>
+  </defs>
+  <rect x="330" y="15" width="260" height="56" rx="12" class="node"/>
+  <text x="460" y="50" class="heading">接收使用者任務</text>
+  <path d="M460 71 V88" class="line"/>
+  <rect x="330" y="90" width="260" height="56" rx="12" class="node"/>
+  <text x="460" y="125" class="heading">判斷需要的背景與規則</text>
+  <path d="M460 146 V163" class="line"/>
+  <rect x="330" y="165" width="260" height="56" rx="12" class="node"/>
+  <text x="460" y="200" class="heading">讀取相關資料</text>
+  <path d="M460 221 V238" class="line"/>
+  <rect x="330" y="240" width="260" height="56" rx="12" class="node"/>
+  <text x="460" y="275" class="heading">形成回答或具體建議</text>
+  <path d="M460 296 V313" class="line"/>
+  <rect x="330" y="315" width="260" height="56" rx="12" class="branch"/>
+  <text x="460" y="350" class="heading">使用者檢查與決定</text>
+  <path d="M330 343 H150 V410" class="line"/>
+  <path d="M460 371 V410" class="line"/>
+  <path d="M590 343 H770 V410" class="line"/>
+  <rect x="30" y="415" width="240" height="78" rx="12" class="branch"/>
+  <text x="150" y="446" class="heading">提供回饋或新資訊</text>
+  <text x="150" y="471" class="note">重新檢查並修正回答</text>
+  <path d="M30 454 H14 V193 H327" class="line"/>
+  <rect x="340" y="415" width="240" height="78" rx="12" class="node"/>
+  <text x="460" y="446" class="heading">回答完成或交回</text>
+  <text x="460" y="471" class="note">結束本次 Agent 回應</text>
+  <rect x="650" y="415" width="240" height="78" rx="12" class="caution"/>
+  <text x="770" y="446" class="heading">需要修改研究程式</text>
+  <text x="770" y="471" class="note">提出具體修改並等待批准</text>
+  <path d="M770 493 V510" class="line"/>
+  <rect x="620" y="512" width="300" height="65" rx="12" class="caution"/>
+  <text x="770" y="538" class="note">批准：只修改核准範圍</text>
+  <text x="770" y="561" class="note">未批准／待決：不修改，交回使用者</text>
+</svg>

@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Harvey｜AI Agent 教學簡報</title>
+  <style>
+    :root { color-scheme: light; --ink: #152b3a; --muted: #526a78; --teal: #096a66; --line: #d7e7e3; --pale: #e9f6f2; --amber: #fff5dd; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: #e8f0ef; color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; line-height: 1.65; }
+    a { color: var(--teal); }
+    a:focus-visible { outline: 3px solid #d79a26; outline-offset: 3px; }
+    .topbar { position: sticky; top: 0; z-index: 2; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 4%; background: #123b3b; color: white; box-shadow: 0 2px 12px #173c3b1a; }
+    .topbar strong { letter-spacing: .08em; font-size: .85rem; }
+    .topbar nav { display: flex; flex-wrap: wrap; gap: 5px; }
+    .topbar a { display: inline-block; padding: 4px 9px; border-radius: 5px; color: #e5f5f1; text-decoration: none; font-size: .82rem; }
+    .topbar a:hover { background: #2f6762; }
+    .deck { max-width: 1200px; margin: 0 auto; }
+    .slide { min-height: calc(100vh - 52px); display: flex; flex-direction: column; justify-content: center; padding: clamp(30px, 6vw, 72px); border-bottom: 1px solid var(--line); background: #fbfdfc; scroll-margin-top: 62px; }
+    .slide:nth-child(even) { background: #f0f8f5; }
+    .kicker { margin: 0 0 10px; color: var(--teal); font-size: .78rem; font-weight: 800; letter-spacing: .14em; }
+    h1, h2 { margin: 0 0 18px; letter-spacing: -.035em; line-height: 1.18; }
+    h1 { font-size: clamp(2.5rem, 6vw, 4.7rem); }
+    h2 { font-size: clamp(1.9rem, 4vw, 3.1rem); }
+    h3 { margin: 0 0 6px; font-size: 1.1rem; }
+    p { margin: 0 0 14px; }
+    .lead { max-width: 850px; color: var(--muted); font-size: clamp(1.1rem, 2vw, 1.4rem); }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .card { padding: 18px 20px; border: 1px solid var(--line); border-radius: 12px; background: white; }
+    .card p:last-child { margin-bottom: 0; }
+    .key { color: var(--teal); font-weight: 800; }
+    .note { margin: 18px 0 0; padding: 13px 17px; border-left: 4px solid #d2a03c; background: var(--amber); color: #604a25; }
+    .quote { margin: 12px 0; padding: 15px 18px; border-left: 4px solid var(--teal); background: var(--pale); }
+    .small { color: var(--muted); font-size: .9rem; }
+    .slide-footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-top: 28px; padding-top: 14px; border-top: 1px solid var(--line); font-size: .85rem; }
+    .next { font-weight: 700; text-decoration: none; }
+    .diagram { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(220px, .8fr); gap: 22px; align-items: center; }
+    .diagram img { display: block; width: 100%; height: auto; background: white; border: 1px solid var(--line); border-radius: 12px; }
+    ul, ol { margin: 8px 0; padding-left: 1.4em; }
+    li { margin: 7px 0; }
+    code { padding: 2px 5px; border-radius: 4px; background: #e6f1ed; font-size: .9em; }
+    @media (max-width: 700px) {
+      .topbar { position: static; }
+      .slide { min-height: auto; padding: 45px 22px; scroll-margin-top: 0; }
+      .grid, .grid.three, .diagram { grid-template-columns: 1fr; }
+      .slide-footer { margin-top: 20px; }
+    }
+    @media print {
+      .topbar { display: none; }
+      .slide { min-height: auto; break-after: page; padding: 20px; }
+      .slide:last-child { break-after: auto; }
+      a { color: inherit; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <strong>HARVEY · AI AGENT 教學簡報</strong>
+    <nav aria-label="簡報頁面">
+      <a href="#s1">01</a><a href="#s2">02</a><a href="#s3">03</a><a href="#s4">04</a><a href="#s5">05</a><a href="#s6">06</a>
+      <a href="#s7">07</a><a href="#s8">08</a><a href="#s9">09</a><a href="#s10">10</a><a href="#s11">11</a><a href="#s12">12</a>
+      <a href="llm-wiki/index.html">Wiki ↗</a>
+    </nav>
+  </header>
+  <main class="deck">
+    <section class="slide" id="s1">
+      <p class="kicker">01 / INTRODUCTION</p>
+      <h1>Harvey<br>AI 研究助理</h1>
+      <p class="lead">從 AI Agent 的基本概念出發，認識 Harvey 的工作空間、LLM Wiki、權限與研究驗證流程。</p>
+      <p class="small">使用上方數字、每頁的「下一頁」，或向下捲動瀏覽；不需網路或安裝套件。</p>
+      <div class="slide-footer"><a href="llm-wiki/index.html#harvey">對應 Wiki：Harvey 的定位</a><a class="next" href="#s2">下一頁 →</a></div>
+    </section>
+
+    <section class="slide" id="s2">
+      <p class="kicker">02 / WHAT IS AN AGENT?</p>
+      <h2>什麼是 AI Agent？</h2>
+      <p class="lead">Agent 以目標為導向，根據任務與可用資訊判斷下一步，必要時使用工具，再回報或接受回饋。</p>
+      <div class="grid three">
+        <div class="card"><h3>理解目標</h3><p>辨識使用者想完成的任務，以及資訊與權限是否足夠。</p></div>
+        <div class="card"><h3>選擇行動</h3><p>在允許的範圍內讀取資料或使用工具，形成結果。</p></div>
+        <div class="card"><h3>回饋與調整</h3><p>交給使用者檢查；有新資訊時再調整下一步。</p></div>
+      </div>
+      <p class="note">Agent 不一定需要完全自主；是否能採取行動，取決於環境、工具和授權。</p>
+      <div class="slide-footer"><a href="llm-wiki/index.html#roles">對應 Wiki：Agent 與使用者</a><a class="next" href="#s3">下一頁 →</a></div>
+    </section>
+
+    <section class="slide" id="s3">
+      <p class="kicker">03 / SYSTEM</p>
+      <h2>Harvey 的系統架構</h2>
+      <p class="lead">Harvey 是提供持續背景與規則的工作空間；Agent 使用語言模型和可用工具協助研究者。</p>
+      <div class="grid">
+        <div class="card"><h3>使用者與審核</h3><p>提出任務、提供回饋、批准需要授權的操作，並做最終判斷。</p></div>
+        <div class="card"><h3>Agent 與工具</h3><p>讀取相關資料、理解限制、提出回答或建議；工具能力依環境與授權而定。</p></div>
+        <div class="card"><h3>記憶與工作規則</h3><p>保存背景、偏好、專案狀態與任務流程，供 Agent 按需讀取。</p></div>
+        <div class="card"><h3>工作空間的定位</h3><p>這不是自行訓練的模型，也不是已部署的全自動多 Agent 系統。</p></div>
+      </div>
+      <div class="slide-footer"><span><a href="llm-wiki/index.html#harvey">對應 Wiki：Harvey 的定位</a> · <a href="llm-wiki/index.html#roles">Agent 與使用者</a></span><a class="next" href="#s4">下一頁 →</a></div>
+    </section>
+
+    <section class="slide" id="s4">
+      <p class="kicker">04 / LLM WIKI</p>
+      <h2>LLM Wiki 如何累積知識？</h2>
+      <div class="grid">
+        <div class="card"><h3>來源與摘錄</h3><p>逐份討論並確認範圍，保留可追溯的原文摘錄及來源摘要；摘錄明確標示並非完整原文。</p></div>
+        <div class="card"><h3>互相連結的主題</h3><p>將新資料融入已有主題，補上來源與相關條目，而不是只累積彼此孤立的摘要。</p></div>
+        <div class="card"><h3>索引與日誌</h3><p>索引幫助找到內容；追加日誌記錄每次 ingest、修改與來源。</p></div>
+        <div class="card"><h3>規則與瀏覽</h3><p>維護規則定義隱私與檢查步驟；Markdown 支持維護，離線 HTML 提供瀏覽入口。</p></div>
+      </div>
+      <p class="note">目前整理 6 份 Harvey 文件；它們不是 6 份彼此獨立的科學研究。</p>
+      <div class="slide-footer"><span><a href="llm-wiki/index.html#schema">對應 Wiki：維護規則</a> · <a href="llm-wiki/index.html#log">Ingest 日誌</a></span><a class="next" href="#s5">下一頁 →</a></div>
+    </section>
+
+    <section class="slide" id="s5">
+      <p class="kicker">05 / MEMORY &amp; TRUST</p>
+      <h2>記憶是背景，不是保證正確</h2>
+      <div class="grid">
+        <div class="card"><h3>按需讀取</h3><p>以 Markdown 和版本歷史保存背景；根據當前任務選讀相關資料，而不是預設載入全部內容。</p></div>
+        <div class="card"><h3>核對時效</h3><p>舊筆記可能過時或互相衝突；應指出差異並核對可存取的現行資料，不自行猜測。</p></div>
+        <div class="card"><h3>區分資訊性質</h3><p>使用者的當前決定、可核對資料、歷史摘要與 AI 推論，各有不同性質。</p></div>
+        <div class="card"><h3>標明不確定性</h3><p>推論是推論，不應冒充測量或已驗證的結論；引用數值時應保留來源。</p></div>
+      </div>
+      <div class="slide-footer"><span><a href="llm-wiki/index.html#memory">對應 Wiki：記憶</a> · <a href="llm-wiki/index.html#trust">資訊可信度</a></span><a class="next" href="#s6">下一頁 →</a></div>
+    </section>
+
+    <section class="slide" id="s6">
+      <p class="kicker">06 / PERMISSIONS</p>
+      <h2>讀取、修改與執行：不同權限</h2>
+      <div class="grid three">
+        <div class="card"><h3>只讀檢查</h3><p>在有權讀取且範圍明確時，查看程式並指出可能問題；不等於批准修改。</p></div>
+        <div class="card"><h3>修改程式</h3><p>先提出要改的檔案、內容與原因，取得使用者明確批准後再處理。</p></div>
+        <div class="card"><h3>執行分析</h3><p>需要明確要求；程式邏輯檢查或修改批准本身都不等於科學結果已驗證。</p></div>
+      </div>
+      <p class="note">詢問可行性不等於批准；這是文件所述的工作規則，不代表存在自動強制機制。</p>
+      <div class="slide-footer"><span><a href="llm-wiki/index.html#permissions">對應 Wiki：操作權限</a> · <a href="llm-wiki/index.html#roles">角色分工</a></span><a class="next" href="#s7">下一頁 →</a></div>
+    </section>
+
+    <section class="slide" id="s7">
+      <p class="kicker">07 / LOOP &amp; GRAPH</p>
+      <h2>Agent 如何決定下一步？</h2>
+      <div class="diagram">
+        <img src="harvey-loop.svg" alt="概念流程圖：接收任務、判斷背景與規則、讀取資料、形成建議、使用者檢查，再依回饋、結束或批准分支處理。">
+        <div>
+          <p><span class="key">回饋：</span>有新資訊或需要修正 → 返回資料檢查。</p>
+          <p><span class="key">批准：</span>需修改正式研究程式 → 提出具體修改並等待批准；未批准則不修改。</p>
+          <p><span class="key">結束或交回：</span>回答完成，或需要使用者處理時，結束本次回應。</p>
+          <p class="small">執行分析需另有明確授權。此圖是依工作規則整理的概念圖，不是已部署或自動強制的 graph 程式。</p>
+        </div>
+      </div>
+      <div class="slide-footer"><span><a href="llm-wiki/index.html#workflow">對應 Wiki：Agent 工作流程</a> · <a href="llm-wiki/index.html#permissions">操作權限</a></span><a class="next" href="#s8">下一頁 →</a></div>
+    </section>
+
+    <section class="slide" id="s8">
+      <p class="kicker">08 / EXAMPLE PROMPT</p>
+      <h2>示意：一次唯讀請求</h2>
+      <div class="quote">請說明研究助理在什麼情況下可以讀取背景、提出修改建議，以及何時需要我的批准。這次不要修改檔案或執行分析。</div>
+      <div class="grid three">
+        <div class="card"><h3>輸入</h3><p>一個問題、任務範圍與本次不執行操作的限制。</p></div>
+        <div class="card"><h3>可用工具與背景</h3><p>在有讀取權限時查閱相關工作規則；以實際環境支援的方式讀取資料。</p></div>
+        <div class="card"><h3>預期輸出</h3><p>區分唯讀、具體修改的批准與分析執行的授權；不應自行修改或執行。</p></div>
+      </div>
+      <p class="note">這是教學用的假設範例，不是實際執行紀錄，也不表示 Agent 行為已經通過測試。</p>
+      <div class="slide-footer"><span><a href="llm-wiki/index.html#permissions">對應 Wiki：操作權限</a> · <a href="llm-wiki/index.html#validation">研究驗證流程</a></span><a class="next" href="#s9">下一頁 →</a></div>
+    </section>
+
+    <section class="slide" id="s9">
+      <p class="kicker">09 / RESEARCH VALIDATION</p>
+      <h2>建議不等於科學驗證</h2>
+      <ol>
+        <li>釐清研究目標、假設、輸入與預期結果；資訊不足時標明不確定性。</li>
+        <li>以唯讀方式檢視，區分已知事實、可能問題與具體建議。</li>
+        <li>提出具有獨立預期結果的簡化測試或解析極限，並記錄數值來源。</li>
+        <li>取得必要授權；由使用者執行或明確授權執行，並檢查與解讀結果。</li>
+      </ol>
+      <p class="note">這些是建議的流程，不代表本展示已執行科學分析或證明研究結論。</p>
+      <div class="slide-footer"><span><a href="llm-wiki/index.html#validation">對應 Wiki：研究驗證流程</a> · <a href="llm-wiki/index.html#trust">資訊可信度</a></span><a class="next" href="#s10">下一頁 →</a></div>
+    </section>
+
+    <section class="slide" id="s10">
+      <p class="kicker">10 / REVIEW &amp; HANDOFF</p>
+      <h2>交接與獨立審查</h2>
+      <div class="grid">
+        <div class="card"><h3>文件交接</h3><p>精簡記錄目標、假設、限制、審查與使用者決定。Git 保存版本，不會自動共享對話或啟動 Agent。</p></div>
+        <div class="card"><h3>一般審查</h3><p>可以參考其他意見與先前討論；有助於比較，但不應稱為盲審。</p></div>
+        <div class="card"><h3>盲審的條件</h3><p>第一輪只提供受限資料，記錄後才分享先前結論。不能確認隔離時，標示為一般審查並說明原因。</p></div>
+        <div class="card"><h3>獨立驗證</h3><p>從假設重新推導並檢查量綱、極限等；多模型意見一致仍不是獨立物理證據。</p></div>
+      </div>
+      <p class="note">不同檔案不自動保證資訊隔離；交接文件也不能取代實際檢查。</p>
+      <div class="slide-footer"><span><a href="llm-wiki/index.html#handoff">對應 Wiki：跨模型交接</a> · <a href="llm-wiki/index.html#theory-review">獨立理論審查</a></span><a class="next" href="#s11">下一頁 →</a></div>
+    </section>
+
+    <section class="slide" id="s11">
+      <p class="kicker">11 / SOURCE MAP</p>
+      <h2>展示內容從哪裡來？</h2>
+      <div class="grid">
+        <div class="card"><h3><a href="llm-wiki/index.html#source-01">01 工作空間概覽</a></h3><p>Harvey 定位、背景與跨模型限制。</p></div>
+        <div class="card"><h3><a href="llm-wiki/index.html#source-02">02 Agent 工作協議</a></h3><p>可信度、角色分工及操作權限。</p></div>
+        <div class="card"><h3><a href="llm-wiki/index.html#source-03">03 AI 系統架構</a></h3><p>持久背景、角色、文件交接及系統改善。</p></div>
+        <div class="card"><h3><a href="llm-wiki/index.html#source-04">04 研究驗證流程</a></h3><p>唯讀檢視、授權、獨立檢查及結果分類。</p></div>
+        <div class="card"><h3><a href="llm-wiki/index.html#source-05">05 獨立理論審查</a></h3><p>假設、重新推導、檢查與盲審。</p></div>
+        <div class="card"><h3><a href="llm-wiki/index.html#source-06">06 任務交接流程</a></h3><p>交接內容、審查模式及使用者決定。</p></div>
+      </div>
+      <p class="small">各來源頁連到經審核的原文摘錄；主題頁整合並標明支持它們的來源。</p>
+      <div class="slide-footer"><a href="llm-wiki/index.html#contents">查看 Wiki 主題索引</a><a class="next" href="#s12">下一頁 →</a></div>
+    </section>
+
+    <section class="slide" id="s12">
+      <p class="kicker">12 / TAKEAWAYS</p>
+      <h2>重點整理</h2>
+      <div class="grid">
+        <div class="card"><h3>保存與連結</h3><p>讓背景與來源可追溯，並把不同來源的知識整合到相關主題。</p></div>
+        <div class="card"><h3>使用者掌握決定</h3><p>讀取、修改及執行需分別看待；使用者批准必要操作並負責最終判斷。</p></div>
+        <div class="card"><h3>證據勝過一致</h3><p>模型意見或交接紀錄不能取代獨立檢查與科學驗證。</p></div>
+        <div class="card"><h3>按需求改善</h3><p>以具體問題與驗收標準驅動小範圍改善，再由使用者評估結果。</p></div>
+      </div>
+      <div class="slide-footer"><span><a href="llm-wiki/index.html">開啟完整 LLM Wiki</a> · <a href="llm-wiki/index.html#improvement">系統改善</a></span><a class="next" href="#s1">回到首頁 ↑</a></div>
+    </section>
+  </main>
+</body>
+</html>
